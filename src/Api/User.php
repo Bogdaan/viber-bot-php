@@ -14,7 +14,7 @@ class User implements Entity
     /**
      * Unique Viber user id
      *
-     * @var integer
+     * @var string
      */
     protected $id;
 
@@ -122,7 +122,7 @@ class User implements Entity
     /**
      * Get the value of Unique Viber user id
      *
-     * @return integer
+     * @return string
      */
     public function getId()
     {

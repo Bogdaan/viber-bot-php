@@ -45,4 +45,8 @@ class Message extends Event
         return $this->message;
     }
 
+    public function getMessageText()
+    {
+        return '';
+    }
 }

@@ -13,10 +13,11 @@ class Sender implements Entity
 {
     /**
      * Viber User id
-     * @var [type]
+     * 
+     * @var string
      */
     protected $id;
-    
+
     /**
      * Viber name
      *
@@ -51,13 +52,38 @@ class Sender implements Entity
     public function toArray()
     {
         return [
+            'id' => $this->getId(),
             'name' => $this->getName(),
             'avatar' => $this->getAvatar()
         ];
     }
 
     /**
-     * Get the value of User's Viber name
+     * Get the value of Viber User id
+     *
+     * @return [type]
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of Viber User id
+     *
+     * @param string id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Viber name
      *
      * @return string
      */
@@ -67,7 +93,7 @@ class Sender implements Entity
     }
 
     /**
-     * Set the value of User's Viber name
+     * Set the value of Viber name
      *
      * @param string name
      *

@@ -2,6 +2,8 @@
 
 namespace Viber;
 
+use Viber\Api\Core\EventType;
+
 /**
  * Simple rest client for Viber public account (PA)
  *
@@ -11,14 +13,46 @@ namespace Viber;
  */
 class Client
 {
+    const BASE_URI = 'https://chatapi.viber.com/pa/';
+
+    /**
+     * Access token
+     *
+     * @var string
+     */
+    protected $token;
+
+    /**
+     * http network adapter
+     *
+     * @var \GuzzleHttp\Client
+     */
+    protected $http;
+
     /**
      * Create api client, require:
      * token - authentication token
      *
-     * @param array $params [description]
+     * @param array $params
      */
     public function __construct($params)
     {
+        $this->token = $params['token'];
+        $this->http = new \GuzzleHttp\Client([
+            'base_uri' => self::BASE_URI,
+        ]);
+    }
+
+
+    /**
+     * Call api method
+     *
+     * @param  [type] $method [description]
+     * @return mixed
+     */
+    public function call($method)
+    {
+
     }
 
     /**
@@ -29,8 +63,17 @@ class Client
      *
      * @param string $url webhook url
      */
-    public function setWebhook($url)
+    public function setWebhook($url, $eventTypes = null)
     {
+        if (is_null($eventTypes)) {
+            $eventTypes = [EventType::SUBSCRIBED, EventType::CONVERSATION];
+        }
+        $response = $this->http->request('POST', 'set_webhook', [
+            'json' => [
+                'url' => $url,
+                'event_types' => $eventTypes,
+            ]
+        ]);
     }
 
     /**
@@ -62,10 +105,10 @@ class Client
      * The API supports up to 100 user id per request and those users must be
      * subscribed to the PA.
      *
-     * @param  [type] $viberUserId [description]
+     * @param  [type] $viberUserIds [description]
      * @return [type]              [description]
      */
-    public function getOnlineStatus($viberUserId)
+    public function getOnlineStatus($viberUserIds)
     {
     }
 

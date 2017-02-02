@@ -4,6 +4,8 @@ namespace Viber\Api\Core;
 
 /**
  * Api entity interface
+ *
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 interface Entiy
 {
