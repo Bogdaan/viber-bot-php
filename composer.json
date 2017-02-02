@@ -1,0 +1,15 @@
+{
+    "name": "bogdaan/viber-bot-php",
+    "description": "Php bot interface to work with Viber API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Novikov Bogdan",
+            "email": "hcbogdan@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    }
+}
