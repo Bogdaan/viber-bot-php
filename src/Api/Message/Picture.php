@@ -5,7 +5,9 @@ namespace Viber\Api\Message;
 use Viber\Api\Message;
 
 /**
- * Picture message
+ * Picture as message
+ *
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 class Picture extends Message
 {
@@ -28,11 +30,95 @@ class Picture extends Message
     protected $thumbnail;
 
     /**
-     * message type
-     * @return [type] [description]
+     * {@inheritdoc}
      */
     public function getType()
     {
         return 'picture';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        return array_merge(parent::toArray(), [
+            'text' => $this->getText(),
+            'media' => $this->getMedia(),
+            'thumbnail' => $this->getThumbnail()
+        ]);
+    }
+
+    /**
+     * Get the value of Description of image
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set the value of Description of image
+     *
+     * @param string text
+     *
+     * @return self
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of URL of the image (JPEG)
+     *
+     * @return string
+     */
+    public function getMedia()
+    {
+        return $this->media;
+    }
+
+    /**
+     * Set the value of URL of the image (JPEG)
+     *
+     * @param string media
+     *
+     * @return self
+     */
+    public function setMedia($media)
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of URL of a reduced size image (JPEG)
+     *
+     * @return string
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    /**
+     * Set the value of URL of a reduced size image (JPEG)
+     *
+     * @param string thumbnail
+     *
+     * @return self
+     */
+    public function setThumbnail($thumbnail)
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
 }

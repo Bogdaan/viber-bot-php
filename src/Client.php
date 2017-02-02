@@ -3,14 +3,18 @@
 namespace Viber;
 
 /**
- * Simple rest client for Viber public account
+ * Simple rest client for Viber public account (PA)
  *
  * @see https://developers.viber.com/api/rest-bot-api/index.html
+ *
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 class Client
 {
     /**
-     * [__construct description]
+     * Create api client, require:
+     * token - authentication token
+     *
      * @param array $params [description]
      */
     public function __construct($params)

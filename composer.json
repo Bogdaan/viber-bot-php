@@ -1,6 +1,7 @@
 {
     "name": "bogdaan/viber-bot-php",
     "description": "Php bot interface to work with Viber API",
+    "keywords": ["viber", "im", "bot"],
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,5 +12,10 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Viber\\": "src/"
+        }
     }
 }

@@ -6,27 +6,90 @@ use Viber\Api\Message;
 
 /**
  * Contact as message
+ *
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 class Contact extends Message
 {
     /**
      * Name of the contact. Max 28 characters.
+     *
      * @var string
      */
     protected $name;
 
     /**
      * Phone number of the contact. Max 18 characters
+     *
      * @var integer
      */
     protected $phone_number;
 
     /**
-     * message type
-     * @return [type] [description]
+     * {@inheritdoc}
      */
     public function getType()
     {
         return 'contact';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        return array_merge(parent::toArray(), [
+            'name' => $this->getName(),
+            'phone_number' => $this->getPhoneNumber()
+        ]);
+    }
+
+    /**
+     * Get the value of Name of the contact. Max 28 characters.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the value of Name of the contact. Max 28 characters.
+     *
+     * @param string name
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Phone number of the contact. Max 18 characters
+     *
+     * @return integer
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phone_number;
+    }
+
+    /**
+     * Set the value of Phone number of the contact. Max 18 characters
+     *
+     * @param integer phone_number
+     *
+     * @return self
+     */
+    public function setPhoneNumber($phone_number)
+    {
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
 }
