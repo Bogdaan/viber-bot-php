@@ -2,6 +2,7 @@
 
 namespace Viber\Api\Event;
 
+use Viber\User;
 use Viber\Api\Event;
 
 /**
@@ -29,6 +30,13 @@ class Conversation extends Event
     protected $user;
 
     /**
+     * Conversation action
+     *
+     * @var string
+     */
+    protected $type;
+
+    /**
      * Get the value of Context information
      *
      * @return string
@@ -48,4 +56,13 @@ class Conversation extends Event
         return $this->user;
     }
 
+    /**
+     * Get conversation type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
 }

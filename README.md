@@ -16,5 +16,10 @@ composer require bogdaan/viber-bot-php
 
 ## Features
 
-* Wrap all entities to objects
-* Simple interface
+[x] all api entities
+[x] validate request and response signs
+[x] provide webhook interface
+[x] provide event interface
+[ ] wrap all api response to entities
+[ ] validate api entities before submit?
+[ ] implement log levels with monolog

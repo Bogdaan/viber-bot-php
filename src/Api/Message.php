@@ -2,19 +2,19 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Core\Entity;
+use Viber\Api\Entity;
 
 /**
- * Viber general message object
+ * General message object
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 class Message extends Entity
 {
     /**
-     * Viber user
+     * Viber user id
      *
-     * @var \Viber\Api\User
+     * @var integer
      */
     protected $receiver;
 
@@ -71,7 +71,7 @@ class Message extends Entity
     /**
      * Get the value of Viber user
      *
-     * @return \Viber\Api\User
+     * @return string
      */
     public function getReceiver()
     {
@@ -81,11 +81,11 @@ class Message extends Entity
     /**
      * Set the value of Viber user
      *
-     * @param \Viber\Api\User receiver
+     * @param string receiver
      *
      * @return self
      */
-    public function setReceiver(\Viber\Api\User $receiver)
+    public function setReceiver($receiver)
     {
         $this->receiver = $receiver;
 
@@ -100,20 +100,6 @@ class Message extends Entity
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set the value of Message type
-     *
-     * @param string type
-     *
-     * @return self
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     /**

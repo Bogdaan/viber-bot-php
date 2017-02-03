@@ -6,6 +6,8 @@ use Closure;
 use Viber\Client;
 use Viber\Bot\Manager;
 use Viber\Api\Event;
+use Viber\Api\Signature;
+use Viber\Api\Event\Factory;
 
 /**
  * Build bot with viber client
@@ -35,6 +37,7 @@ class Bot
      * token  string
      * client \Viber\Client
      *
+     * @throws \RuntimeException
      * @param array $options
      */
     public function __construct(array $options)
@@ -81,10 +84,10 @@ class Bot
      */
     public function onText($regexp, \Closure $handler)
     {
-        $this->managers[] = new Manager(function(Event $event) use ($regexp) {
+        $this->managers[] = new Manager(function (Event $event) use ($regexp) {
             return (
                 $event instanceof \Viber\Api\Event\Message
-                && preg_match($regexp, $event->getMessageText())
+                && preg_match($regexp, $event->getMessage()->getText())
             );
         }, $handler);
         return $this;
@@ -98,7 +101,7 @@ class Bot
      */
     public function onSubscribe(\Closure $handler)
     {
-        $this->managers[] = new Manager(function(Event $event) {
+        $this->managers[] = new Manager(function (Event $event) {
             return ($event instanceof \Viber\Api\Event\Subscribed);
         }, $handler);
         return $this;
@@ -119,16 +122,63 @@ class Bot
     }
 
     /**
+     * Get signature header
+     *
+     * @throws \RuntimeException
+     * @return string
+     */
+    public function getSignHeaderValue()
+    {
+        $headerName = 'HTTP_X_VIBER_CONTENT_SIGNATURE';
+        if (!isset($_SERVER[$headerName])) {
+            throw new \RuntimeException($headerName.' header not found', 1);
+        }
+        return $_SERVER[$headerName];
+    }
+
+    /**
+     * Get bot input stream
+     *
+     * @return string
+     */
+    public function getInputBody()
+    {
+        return file_get_contents('php://input');
+    }
+
+    /**
      * Start bot process
      *
+     * @throws \RuntimeException
+     * @param \Viber\Api\Event $event start bot with some event
      * @return \Viber\Bot
      */
-    public function run()
+    public function run($event = null)
     {
-        $eventData = new Event();
+        if (is_null($event)) {
+            // check body
+            $eventBody = $this->getInputBody();
+            if (!Signature::isValid(
+                $this->getSignHeaderValue(),
+                $this->getClient()->getToken(),
+                $eventBody
+            )) {
+                throw new \RuntimeException('Invalid signature header', 2);
+            }
+            // check json
+            $eventBody = json_decode($eventBody, true);
+            if (json_last_error() || empty($eventBody) || !is_array($eventBody)) {
+                throw new \RuntimeException('Invalid json request', 3);
+            }
+            // make event from json
+            $event = Factory::makeFromApi($eventBody);
+        } elseif (!$event instanceof Event) {
+            throw new \RuntimeException('Event must be instance of \Viber\Api\Event', 4);
+        }
+        // main bot loop
         foreach ($this->managers as $manager) {
-            if ($manager->isMatch($eventData)) {
-                $manager->runHandler($eventData);
+            if ($manager->isMatch($event)) {
+                $manager->runHandler($event);
                 break;
             }
         }

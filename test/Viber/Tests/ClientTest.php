@@ -2,39 +2,57 @@
 
 namespace Viber\Tests;
 
-use Viber\Api\Client;
+use Viber\Client;
+use Viber\Tests\ApiMock;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\RequestException;
 
+/**
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
+ */
 class ClientTest extends TestCase
 {
     /**
-     * @expectedException \Viber\Exception\ViberException
+     * @expectedException \Viber\Exception\ApiException
+     * @expectedExceptionMessageRegExp |^No token .*|
      */
-    public function testConstructor()
+    public function testNoToken()
     {
-        new Client();
+        new Client([]);
     }
 
-    public function testSetWebhook()
+    /**
+     * @expectedException \Viber\Api\Exception\ApiException
+     * @expectedExceptionMessageRegExp |^Invalid webhook .*|
+     */
+    public function testInvalidHttpHook()
+    {
+        (new Client([
+            'token' => 'some-token'
+        ]))
+        ->setWebhook('http://some.url');
+    }
+
+    /**
+     * @expectedException \Viber\Api\Exception\ApiException
+     * @expectedExceptionMessageRegExp |Remote error: Invalid.*|
+     */
+    public function testServerError()
     {
         $handler = HandlerStack::create(
             new MockHandler([
-                new Response(200, ['X-Viber-Content-Signature' => 'nope']),
-                new RequestException("some error", new Request('GET', 'test'))
+                new Response(400),
             ])
         );
-
         $client = new Client([
-            'token' => 'some-token',
+            'token' => 'token',
             'http' => [
                 'handler' => $handler
             ]
         ]);
-
-        $client->setWebhook('https://some.url');
+        $apinInfo = $client->call('get_account_info', []);
     }
 }

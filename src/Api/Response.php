@@ -2,12 +2,11 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Core\ApiException;
+use Viber\Api\Exception\ApiException;
+
 
 /**
- * Manage backend response,
- * translate api error ot exception,
- * validate message token
+ * Manage backend response, translate api error ot exception
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
@@ -24,25 +23,21 @@ class Response
      * Create api response from http-response
      *
      * @param  \GuzzleHttp\Psr7\Response $response network response
-     * @param  string                    $token    PA token
      * @return \Viber\Api\Response
      */
-    public static function create(GuzzleHttp\Psr7\Response $response, $token)
+    public static function create(\GuzzleHttp\Psr7\Response $response)
     {
-        // - validate token
-        $authHeader = $response->getHeader('X-Viber-Content-Signature');
-        if (!$authHeader || $authHeader != hash_hmac('sha256', $response->getBody(), $token)) {
-            throw new ApiException("Invalid X-Viber-Content-Signature");
-        }
         // - validate body
         $data = json_decode($response->getBody(), true);
         if (empty($data)) {
             throw new ApiException("Invalid response body");
         }
         // - validate internal data
-        if (isset($data['status']) && isset($data['status_message'])) {
+        if (isset($data['status'])) {
             if ($data['status'] != 0) {
-                throw new ApiException('Remote error: '.$data['status_message'], $data['status']);
+                throw new ApiException('Remote error: '.
+                    (isset($data['status_message'])? $data['status_message']: '-'),
+                    $data['status']);
             }
             $item = new self();
             $item->data = $data;

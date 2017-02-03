@@ -2,7 +2,7 @@
 
 namespace Viber\Api\Keyboard;
 
-use Viber\Api\Core\Entity;
+use Viber\Api\Entity;
 
 /**
  * Keyboard button

@@ -1,15 +1,20 @@
 <?php
 
+namespace Viber\Tests;
+
 /**
  * Api response arrays
+ *
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 class ApiMock
 {
-    protected $list = [
+    // response array samples
+    protected $callList = [
         'set_webhook' => [
             "url" => "https://my.host.com",
             "event_types" => ["delivered", "seen", "failed", "subscribed", "unsubscribed", "conversation_started"]
-        ],
+       ],
        'get_account_info' => [
             "status" => 0,
             "status_message" => "ok",
@@ -102,10 +107,14 @@ class ApiMock
        ]
     ];
 
+
+    /**
+     * Find mock by method name
+     */
     public static function getMockByName($name)
     {
-        if (isset($this->list[$name])) {
-            return $this->list[$name];
+        if (isset($this->callList[$name])) {
+            return $this->callList[$name];
         }
         return [];
     }

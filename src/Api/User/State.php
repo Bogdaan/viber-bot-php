@@ -2,7 +2,7 @@
 
 namespace Viber\Api\User;
 
-use Viber\Api\Core\Entity;
+use Viber\Api\Entity;
 
 /**
  * Represent user state: online, offline, unsubscribed, hidden
@@ -41,20 +41,13 @@ class State extends Entity
     protected $message;
 
     /**
-     * Make new instance from api response array
-     *
-     * @param array $properties list of properties
+     * {@inheritDoc}
      */
-    public function __construct($properties)
-    {
-        if (!is_array($properties) && !$properties instanceof ArrayAccess) {
-            throw new \Exception('Properties must be an array or implement ArrayAccess');
-        }
-        $this
-            ->setId($properties['id'])
-            ->setStatus($properties['online_status'])
-            ->setMessage($properties['online_status_message']);
-    }
+    protected $propertiesMap = [
+        'id' => 'setId',
+        'online_status' => 'setStatus',
+        'online_status_message' => 'setMessage'
+    ];
 
     /**
      * {@inheritDoc}

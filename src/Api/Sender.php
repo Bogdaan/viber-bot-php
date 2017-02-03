@@ -2,7 +2,7 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Core\Entity;
+use Viber\Api\Entity;
 
 /**
  * Message sender
@@ -13,7 +13,7 @@ class Sender extends Entity
 {
     /**
      * Viber User id
-     * 
+     *
      * @var string
      */
     protected $id;
@@ -33,18 +33,13 @@ class Sender extends Entity
     protected $avatar;
 
     /**
-     * Make new instance from api response
-     *
-     * @param  array $properties list of properties
+     * {@inheritDoc}
      */
-    public function __construct($properties)
-    {
-        if (!is_array($properties) && !$properties instanceof ArrayAccess) {
-            throw new \Exception('Properties must be an array or implement ArrayAccess');
-        }
-        isset($properties['name'])? $this->setName($properties['name']): null;
-        isset($properties['avatar'])? $this->setName($properties['avatar']): null;
-    }
+    protected $propertiesMap = [
+        'id' => 'setId',
+        'name' => 'setName',
+        'avatar' => 'setAvatar'
+    ];
 
     /**
      * {@inheritDoc}

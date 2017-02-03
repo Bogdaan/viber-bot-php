@@ -1,6 +1,6 @@
 <?php
 
-namespace Viber\Api\Core;
+namespace Viber\Api\Exception;
 
 /**
  * Remote api error (api-level exception)
