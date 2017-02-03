@@ -3,6 +3,7 @@
 namespace Viber;
 
 use Closure;
+use Viber\Client;
 use Viber\Bot\Manager;
 use Viber\Api\Event;
 
@@ -28,22 +29,22 @@ class Bot
     protected $managers = [];
 
     /**
-     * Init client, setup acts.
+     * Init client
      *
-     * Required parameters:
-     * authToken - string
-     * client - \Viber\Client
+     * Required options (one of two):
+     * token  string
+     * client \Viber\Client
      *
-     * @param array $params
+     * @param array $options
      */
-    public function __construct(array $params)
+    public function __construct(array $options)
     {
-        if (isset($params['authToken'])) {
-            $this->client = new Client($params['authToken']);
-        } elseif (isset($params['client'])) {
-            $this->client = $params['client'];
+        if (isset($options['token'])) {
+            $this->client = new Client($options);
+        } elseif (isset($options['client']) && $options['client'] instanceof Client) {
+            $this->client = $options['client'];
         } else {
-            throw new \RuntimeException('Specify "client" or "authToken" parameters');
+            throw new \RuntimeException('Specify "client" or "token" parameter');
         }
     }
 
@@ -55,17 +56,6 @@ class Bot
     public function getClient()
     {
         return $this->client;
-    }
-
-    /**
-     * Send message to user
-     *
-     * @param  \Viber\Api\Message $message [description]
-     * @return [type]                   [description]
-     */
-    public function sendMessage(\Viber\Api\Message $message)
-    {
-        return $this->client->sendMessage($message);
     }
 
     /**
@@ -97,6 +87,7 @@ class Bot
                 && preg_match($regexp, $event->getMessageText())
             );
         }, $handler);
+        return $this;
     }
 
     /**
@@ -110,6 +101,7 @@ class Bot
         $this->managers[] = new Manager(function(Event $event) {
             return ($event instanceof \Viber\Api\Event\Subscribed);
         }, $handler);
+        return $this;
     }
 
     /**
@@ -123,6 +115,7 @@ class Bot
         $this->managers[] = new Manager(function(Event $event) {
             return ($event instanceof \Viber\Api\Event\Conversation);
         }, $handler);
+        return $this;
     }
 
     /**

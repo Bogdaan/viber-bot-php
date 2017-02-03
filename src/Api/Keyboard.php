@@ -16,7 +16,7 @@ use Viber\Api\Core\Entity;
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
-class Keyboard implements Entity
+class Keyboard extends Entity
 {
     /**
      * Array containing all keyboard buttons by order

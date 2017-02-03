@@ -7,12 +7,33 @@ namespace Viber\Api\Core;
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
-interface Entiy
+class Entiy
 {
     /**
-     * Build array for api call`s, filter or upgrade properties
+     * Build array single-level array
      *
      * @return array
      */
-    public function toArray();
+    public function toArray()
+    {
+        return [];
+    }
+
+    /**
+     * Build multi-level array for api call`s, filter or upgrade properties
+     *
+     * @return array
+     */
+    public function toNestedArray()
+    {
+        $entity = $this->toArray();
+        foreach ($entity as $name => &$value) {
+            if (is_null($value)) {
+                unset($entity[$name]);
+            } else if ($value instanceof Entity) {
+                $value = $value->toArray();
+            }
+        }
+        return $entity;
+    }
 }

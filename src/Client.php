@@ -3,6 +3,7 @@
 namespace Viber;
 
 use Viber\Api\Core\EventType;
+use Viber\Api\Message;
 
 /**
  * Simple rest client for Viber public account (PA)
@@ -13,6 +14,11 @@ use Viber\Api\Core\EventType;
  */
 class Client
 {
+    /**
+     * Api endpoint base
+     *
+     * @var string
+     */
     const BASE_URI = 'https://chatapi.viber.com/pa/';
 
     /**
@@ -23,36 +29,53 @@ class Client
     protected $token;
 
     /**
-     * http network adapter
+     * Http network client
      *
      * @var \GuzzleHttp\Client
      */
     protected $http;
 
     /**
-     * Create api client, require:
-     * token - authentication token
+     * Create api client. Options:
+     * token  required  string  authentication token
+     * http   optional  array   adapter parameters
      *
-     * @param array $params
+     * @throws \Viber\Exception\ViberException
+     * @param array $options
      */
-    public function __construct($params)
+    public function __construct($options)
     {
-        $this->token = $params['token'];
-        $this->http = new \GuzzleHttp\Client([
+        if (!isset($options['token'])) {
+            throw new ViberException('No token provided');
+        }
+        $this->token = $options['token'];
+        $httpInit = [
             'base_uri' => self::BASE_URI,
-        ]);
+        ];
+        if (isset($param['http']) && is_array($param['http'])) {
+            $httpInit = array_merge($param['http'], $httpInit);
+        }
+        $this->http = new \GuzzleHttp\Client($httpInit);
     }
-
 
     /**
      * Call api method
      *
-     * @param  [type] $method [description]
-     * @return mixed
+     * @throws \Viber\Api\Core\ApiException
+     * @param  string $method method name
+     * @param  mixed  $data   method data
+     * @return \Viber\Api\Response
      */
-    public function call($method)
+    public function call($method, array $data)
     {
-
+        try {
+            $response = $this->http->request('POST', $method, [
+                'json' => $data
+            ]);
+            return Viber\Api\Response::create($response, $this->token);
+        } catch (\RuntimeException $e) {
+            throw new Viber\Api\Core\ApiException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -61,28 +84,31 @@ class Client
      * For security reasons only URLs with valid and * official SSL certificate
      * from a trusted CA will be allowed.
      *
-     * @param string $url webhook url
+     * @see \Viber\Api\Core\EventType
+     * @throws \Viber\Api\Core\ApiException
+     * @param string     $url          webhook url
+     * @param array|null $eventTypes   subscribe to certain events
      */
     public function setWebhook($url, $eventTypes = null)
     {
         if (is_null($eventTypes)) {
             $eventTypes = [EventType::SUBSCRIBED, EventType::CONVERSATION];
         }
-        $response = $this->http->request('POST', 'set_webhook', [
-            'json' => [
-                'url' => $url,
-                'event_types' => $eventTypes,
-            ]
+        return $this->call('set_webhook', [
+            'url' => $url,
+            'event_types' => $eventTypes,
         ]);
     }
 
     /**
      * Fetch the public account’s details as registered in Viber
      *
-     * @return array [description]
+     * @throws \Viber\Api\Core\ApiException
+     * @return \Viber\Api\Response
      */
     public function getAccountInfo()
     {
+        return $this->call('get_account_info', []);
     }
 
     /**
@@ -92,11 +118,15 @@ class Client
      * user's actions. This request can be sent twice during a 12 hours period
      * for each user ID.
      *
-     * @param  [type] $viberUserId [description]
-     * @return [type]         [description]
+     * @throws \Viber\Api\Core\ApiException
+     * @param string $userId
+     * @return \Viber\Api\Response
      */
-    public function getUserDetails($viberUserId)
+    public function getUserDetails($userId)
     {
+        return $this->call('get_user_details', [
+            'id' => $userId
+        ]);
     }
 
     /**
@@ -105,20 +135,25 @@ class Client
      * The API supports up to 100 user id per request and those users must be
      * subscribed to the PA.
      *
-     * @param  [type] $viberUserIds [description]
-     * @return [type]              [description]
+     * @throws \Viber\Api\Core\ApiException
+     * @param  array $userIds list of user ids
+     * @return \Viber\Api\Response
      */
-    public function getOnlineStatus($viberUserIds)
+    public function getOnlineStatus(array $userIds)
     {
+        return $this->call('get_online', [
+            'ids' => $userIds
+        ]);
     }
 
     /**
      * Send messages to Viber users who subscribe to the PA.
      *
-     * @param  [type] $ [description]
-     * @return [type]   [description]
+     * @param  \Viber\Api\Message $message
+     * @return \Viber\Api\Response
      */
-    public function sendMessage($message)
+    public function sendMessage(Message $message)
     {
+        return $this->call('send_message', $message->toNestedArray());
     }
 }

@@ -2,8 +2,12 @@
 
 namespace Viber\Bot;
 
+use \Viber\Api\Event;
+
 /**
- * Bot event manager
+ * Bot event manager.
+ *
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
 class Manager
 {
@@ -56,9 +60,10 @@ class Manager
     /**
      * While event checker match current event?
      *
+     * @param  \Viber\Api\Event $event
      * @return boolean
      */
-    public function isMatch(\Viber\Api\Event $event)
+    public function isMatch(Event $event)
     {
         if (is_callable($this->checker)) {
             return call_user_func($this->checker, $event);
@@ -68,11 +73,11 @@ class Manager
 
     /**
      * Process event with handler function
-     * 
+     *
      * @param  \Viber\Api\Event $event
      * @return mixed event handler result
      */
-    public function runHandler(\Viber\Api\Event $event)
+    public function runHandler(Event $event)
     {
         if (is_callable($this->handler)) {
             return call_user_func($this->handler, $event);

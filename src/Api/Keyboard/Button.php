@@ -11,7 +11,7 @@ use Viber\Api\Core\Entity;
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
-class Button implements Entity
+class Button extends Entity
 {
     /**
      * Button width in columns (1-6)

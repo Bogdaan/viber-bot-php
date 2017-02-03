@@ -9,7 +9,7 @@ use Viber\Api\Core\Entity;
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
-class State implements Entity
+class State extends Entity
 {
     /**
      * Available status
@@ -138,5 +138,15 @@ class State implements Entity
         $this->message = $message;
 
         return $this;
+    }
+
+    /**
+     * Is user online?
+     *
+     * @return boolean
+     */
+    public function isOnline()
+    {
+        return $this->status == self::ONLINE;
     }
 }

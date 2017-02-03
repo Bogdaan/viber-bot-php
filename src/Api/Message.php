@@ -9,7 +9,7 @@ use Viber\Api\Core\Entity;
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */
-class Message implements Entity
+class Message extends Entity
 {
     /**
      * Viber user
