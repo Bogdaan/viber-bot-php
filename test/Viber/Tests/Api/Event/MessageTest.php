@@ -3,13 +3,16 @@
 namespace Viber\Tests\Api\Event;
 
 use Viber\Tests\TestCase;
-use Viber\Api\Event\Message;
+use Viber\Api\Event\Message as MessageEvent;
 
+/**
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
+ */
 class MessageTest extends TestCase
 {
     public function testConstructor()
     {
-        $event = new Message([
+        $event = new MessageEvent([
             "event" => "message",
             "timestamp" => 1457764197627,
             "message_token" => 4912661846655238145,
@@ -29,7 +32,6 @@ class MessageTest extends TestCase
                 "tracking_data" => "tracking data"
             ]
         ]);
-
         $this->assertEquals("msg", $event->getMessage()->getText());
     }
 }

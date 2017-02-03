@@ -29,11 +29,18 @@ class Entity
         if (!is_array($properties) && !$properties instanceof ArrayAccess) {
             throw new ApiException('Properties must be an array or implement ArrayAccess');
         }
-        // call setters
-        foreach ($properties as $apiProp => $apiValue) {
-            if (isset($this->propertiesMap[$apiProp])) {
-                $setterName = $this->propertiesMap[$apiProp];
-                $this->$setterName($apiValue);
+        if (empty($this->propertiesMap)) { // no property map
+            foreach ($properties as $propName => $propValue) {
+                if (property_exists(get_class($this), $propName)) {
+                    $this->$propName = $propValue;
+                }
+            }
+        } else { // call setters
+            foreach ($properties as $propName => $propValue) {
+                if (isset($this->propertiesMap[$propName])) {
+                    $setterName = $this->propertiesMap[$propName];
+                    $this->$setterName($propValue);
+                }
             }
         }
     }

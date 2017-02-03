@@ -2,6 +2,10 @@
 
 namespace Viber\Api;
 
+use Viber\Api\User;
+use Viber\Api\Sender;
+use Viber\Api\Message\Factory as MessageFactory;
+
 /**
  * General event data
  *
@@ -40,11 +44,11 @@ class Event
         foreach ($properties as $propName => $propValue) {
             if (property_exists(get_class($this), $propName)) {
                 if ($propName == 'sender') {
-                    $this->user = new \Viber\Api\User($propValue);
+                    $this->sender = new Sender($propValue);
                 } elseif ($propName == 'message') {
-                    $this->message = new \Viber\Api\Message($propValue);
+                    $this->message = MessageFactory::makeFromApi($propValue);
                 } elseif ($propName == 'user') {
-                    $this->message = new \Viber\Api\User($propValue);
+                    $this->user = new User($propValue);
                 } else {
                     $this->$propName = $propValue;
                 }

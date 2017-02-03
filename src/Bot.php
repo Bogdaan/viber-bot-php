@@ -8,6 +8,7 @@ use Viber\Bot\Manager;
 use Viber\Api\Event;
 use Viber\Api\Signature;
 use Viber\Api\Event\Factory;
+use Viber\Api\Entity;
 
 /**
  * Build bot with viber client
@@ -147,6 +148,18 @@ class Bot
     }
 
     /**
+     * Response with entity
+     *
+     * @param  Entity $entity
+     * @return void
+     */
+    public function outputEntity(Entity $entity)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($entity->toApiArray());
+    }
+
+    /**
      * Start bot process
      *
      * @throws \RuntimeException
@@ -178,7 +191,10 @@ class Bot
         // main bot loop
         foreach ($this->managers as $manager) {
             if ($manager->isMatch($event)) {
-                $manager->runHandler($event);
+                $returnValue = $manager->runHandler($event);
+                if ($returnValue && $returnValue instanceof Entity) { // reply with entity
+                    $this->outputEntity($returnValue);
+                }
                 break;
             }
         }

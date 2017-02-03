@@ -9,7 +9,7 @@ namespace Viber\Api\Message;
  */
 interface Type
 {
-    const TEST = 'text';
+    const TEXT = 'text';
     const PICTURE = 'picture';
     const VIDEO = 'video';
     const FILE = 'file';
