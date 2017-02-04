@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Copy to "config.php" and set you values here:
+ */
+return [
+    'apiKey' => '<PLACE-YOU-API-KEY-HERE>',
+    'webhookUrl' => '<PLACE-YOU-HTTPS-URL>',
+];

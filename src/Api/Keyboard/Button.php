@@ -5,9 +5,14 @@ namespace Viber\Api\Keyboard;
 use Viber\Api\Entity;
 
 /**
- * Keyboard button
+ * Keyboard button.
  *
+ * Pressing a keyboard button would trigger a different reply depending on the
+ * buttons “actionType” value.
+ * 
  * @see https://developers.viber.com/tools/keyboards/index.html
+ * @see https://developers.viber.com/tools/keyboards/index.html#replyLogic
+ * @see https://developers.viber.com/img/keyboard_guidelines.png
  *
  * @author Novikov Bogdan <hcbogdan@gmail.com>
  */

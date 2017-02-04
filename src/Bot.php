@@ -173,8 +173,8 @@ class Bot
             $eventBody = $this->getInputBody();
             if (!Signature::isValid(
                 $this->getSignHeaderValue(),
-                $this->getClient()->getToken(),
-                $eventBody
+                $eventBody,
+                $this->getClient()->getToken()
             )) {
                 throw new \RuntimeException('Invalid signature header', 2);
             }
