@@ -6,6 +6,9 @@ use Viber\Tests\TestCase;
 use Viber\Bot\Manager;
 use Viber\Api\Event;
 
+/**
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
+ */
 class ManagerTest extends TestCase
 {
     public function testChecker()

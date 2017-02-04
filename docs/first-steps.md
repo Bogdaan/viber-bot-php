@@ -53,15 +53,15 @@ require_once("vendor/autoload.php");
 
 use Viber\Client;
 
-$apiKey = '<PLACE-YOU-API-KEY-HERE>'; // from PA "Edit Details" page
+$apiKey = '<PLACE-YOU-API-KEY-HERE>'; // from "Edit Details" page
 $webhookUrl = '<PLACE-YOU-HTTPS-URL>'; // for exmaple https://my.com/bot.php
 
 try {
     $client = new Client([ 'token' => $apiKey ]);
     $result = $client->setWebhook($webhookUrl);
-    print_r($result);    
+    echo "Success!\n";
 } catch (Exception $e) {
-    echo "Unexpected error: ". $e->getError() ."\n";
+    echo "Error: ". $e->getError() ."\n";
 }
 ```
 
@@ -75,13 +75,12 @@ We already subscribed for events. Now we can can accept messages, pictures and o
 require_once("vendor/autoload.php");
 
 use Viber\Bot;
-use Viber\Api\Message\Text as TextMessage;
 
 $apiKey = '<PLACE-YOU-API-KEY-HERE>';
 
 $botSender = new Sender([
     'name' => 'Reply bot',
-    'avatar' => 'http://my.avatar/path.jpg',
+    'avatar' => 'https://developers.viber.com/img/favicon.ico',
 ]);
 
 try {
@@ -90,20 +89,20 @@ try {
     ->onText('|.*|s', function ($event) use ($bot) {
         // .* - match any symbols (see PCRE)
         $bot->getClient()->sendMessage(
-            (new TextMessage())
+            (new \Viber\Api\Message\Text())
             ->setSender($botSender)
             ->setReceiver($event->getSender()->getId())
-            ->setText("HI!")
+            ->setText("Hi!")
         );
     })
     ->run();
 } catch (Exception $e) {
-    // log errors
+    // todo - log errors
 }
 
 ```
 
-You can see more in **examples** dir.
+You can see more in **examples** directory.
 
 ## Resources
 

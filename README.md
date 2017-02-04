@@ -1,6 +1,6 @@
 # PHP sdk for Viber api
 
-Library to develop a bot for the Viber platform.
+Library to develop a bot for the Viber platform. [Create you first Viber bot setp by step](docs/first-steps.md)
 
 ## Installation
 
@@ -13,60 +13,42 @@ composer require bogdaan/viber-bot-php
 ```
 <?php
 
-require_once("vendor/autoload.php");
+require_once("../vendor/autoload.php");
 
 use Viber\Bot;
 use Viber\Api\Sender;
-use Viber\Api\Message\Text as TextMessage;
 
-$bot = new Bot([ 'token' => '<YOU-TOKEN-HERE>' ]);
-$apiClient = $bot->getClient();
+$apiKey = '<PLACE-YOU-API-KEY-HERE>';
 
+// reply name
 $botSender = new Sender([
-    'name' => 'Hello bot',
-    'avatar' => 'http://my.avatar/path.jpg',
+    'name' => 'Whois bot',
+    'avatar' => 'https://developers.viber.com/img/favicon.ico',
 ]);
 
-$bot
-->onText("|hello .*|s", function ($event) use ($apiClient) {
-    // reply to sender
-    $apiClient->sendMessage(
-        (new \Viber\Api\Message\Text())
-        ->setReceiver($event->getSender()->getId())
-        ->setSender($botSender)
-        ->setText("Hi!");
-    );    
-})
-->onSubscribe(function ($event) use ($apiClient) {
-    // reply with "welcome" message
-    return (new \Viber\Api\Message\Text())
-        ->setReceiver($event->getSender()->getId())
-        ->setSender(botSender)
-        ->setText("Can i help you?");
-})
-->on(function ($event) {
-    return (
-        $event->getEvent() == \Viber\Api\Event\Type::TEXT
-        && $event->getMessage()->getType() == \Viber\Api\Message\Type::PICTURE
-    );
-}, function ($event) use ($apiClient) {
-    // if user send picture
-    return (new \Viber\Api\Message\Text())
-        ->setReceiver($event->getSender()->getId())
-        ->setSender($botSender)
-        ->setText("Cool picture");
-})
-->on(function ($event) {
-    return ($event->getEvent() == \Viber\Api\Event\Type::UNSUBSCRIBED);
-}, function ($event) use ($apiClient) {
-    // process all UNSUBSCRIBED events
-})
-->on(function ($event) {
-    return true; // check if we need process this event?
-}, function ($event) use ($apiClient) {
-    // <--- ALL OTHER EVENTS PROCESS HERE
-})
-->run();
+try {
+    $bot = new Bot(['token' => $apiKey]);
+    $bot
+    ->onConversation(function ($event) use ($bot, $botSender) {
+        // this event fires if user open chat, you can return "welcome message"
+        // to user, but you can't send more messages!
+        return (new \Viber\Api\Message\Text())
+            ->setSender($botSender)
+            ->setText("Can i help you?");
+    })
+    ->onText('|whois .*|si', function ($event) use ($bot, $botSender) {
+        // match by template, for example "whois Bogdaan"
+        $bot->getClient()->sendMessage(
+            (new \Viber\Api\Message\Text())
+            ->setSender($botSender)
+            ->setReceiver($event->getSender()->getId())
+            ->setText("I do not know )")
+        );
+    })
+    ->run();
+} catch (Exception $e) {
+    // todo - log exceptions
+}
 ```
 
 See more in **examples** directory.
@@ -88,7 +70,7 @@ See more in **examples** directory.
 - [x] provide event interface
 - [ ] wrap all api response to entities
 - [ ] validate api entities before submit?
-- [ ] implement log levels with monolog
+- [ ] implement log levels with monolog?
 - [ ] post on public page
 
 ## Contributing

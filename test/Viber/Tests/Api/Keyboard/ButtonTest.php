@@ -4,6 +4,9 @@ namespace Viber\Tests;
 
 use Viber\Tests\TestCase;
 
+/**
+ * @author Novikov Bogdan <hcbogdan@gmail.com>
+ */
 class ButtonTest extends TestCase
 {
     public function testToArray()
