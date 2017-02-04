@@ -16,7 +16,7 @@ use GuzzleHttp\Exception\RequestException;
 class ClientTest extends TestCase
 {
     /**
-     * @expectedException \Viber\Exception\ApiException
+     * @expectedException \Viber\Api\Exception\ApiException
      * @expectedExceptionMessageRegExp |^No token .*|
      */
     public function testNoToken()

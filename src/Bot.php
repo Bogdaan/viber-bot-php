@@ -18,7 +18,7 @@ use Viber\Api\Entity;
 class Bot
 {
     /**
-     * Client
+     * Api client
      *
      * @var \Viber\Client
      */
