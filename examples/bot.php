@@ -18,30 +18,33 @@ use Monolog\Handler\StreamHandler;
 $config = require('./config.php');
 $apiKey = $config['apiKey'];
 
+// reply name
 $botSender = new Sender([
-    'name' => 'Reply bot',
-    'avatar' => 'https://developers.viber.com/img/devlogo.png',
+    'name' => 'Whois bot',
+    'avatar' => 'https://developers.viber.com/img/favicon.ico',
 ]);
 
+// log bot interaction
 $log = new Logger('bot');
 $log->pushHandler(new StreamHandler('/tmp/bot.log'));
 
 $bot = null;
 
 try {
+    // create bot instance
     $bot = new Bot(['token' => $apiKey]);
     $bot
     ->onConversation(function ($event) use ($bot, $botSender, $log) {
         $log->info('onConversation '. var_export($event, true));
         // this event fires if user open chat, you can return "welcome message"
-        // to user, but you can't send more messages
+        // to user, but you can't send more messages!
         return (new \Viber\Api\Message\Text())
             ->setSender($botSender)
             ->setText("Can i help you?");
     })
     ->onText('|whois .*|si', function ($event) use ($bot, $botSender, $log) {
         $log->info('onText whois '. var_export($event, true));
-        // match by template, for example "whois Bogdan"
+        // match by template, for example "whois Bogdaan"
         $bot->getClient()->sendMessage(
             (new \Viber\Api\Message\Text())
             ->setSender($botSender)
@@ -60,7 +63,7 @@ try {
         );
     })
     ->on(function ($event) {
-        return true;
+        return true; // match all
     }, function ($event) use ($log) {
         $log->info('Other event: '. var_export($event, true));
     })

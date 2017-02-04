@@ -14,9 +14,8 @@ $bot->on(function ($event) {
 });
 ```
 
+## How to process user conversation
 
-## How to process user conversation?
-TODO
+## How to track message delivery
 
-## How to track message delivery?
-TODO
+## Integration (api.ai, botan.io and others)

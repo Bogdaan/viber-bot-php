@@ -40,7 +40,7 @@ class File extends Message
      */
     public function getType()
     {
-        return 'file';
+        return Type::FILE;
     }
 
     /**

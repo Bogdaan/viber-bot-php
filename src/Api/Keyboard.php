@@ -48,10 +48,25 @@ class Keyboard extends Entity
     public function toArray()
     {
         return [
-            'Buttons' => $this->getButtons(),
+            'Type' => 'keyboard',
+            'Buttons' => $this->getButtonsApiArray(),
             'BgColor' => $this->getBgColor(),
             'DefaultHeight' => $this->getDefaultHeight()
         ];
+    }
+
+    /**
+     * Build buttons api array
+     *
+     * @return array
+     */
+    protected function getButtonsApiArray()
+    {
+        $buttons = [];
+        foreach ($this->getButtons() as $i) {
+            $buttons[] = $i->toApiArray();
+        }
+        return $buttons;
     }
 
     /**

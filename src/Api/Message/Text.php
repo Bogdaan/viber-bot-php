@@ -23,7 +23,7 @@ class Text extends Message
      */
     public function getType()
     {
-        return 'text';
+        return Type::TEXT;
     }
 
     /**

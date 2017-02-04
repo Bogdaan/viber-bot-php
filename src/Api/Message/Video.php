@@ -44,7 +44,7 @@ class Video extends Message
      */
     public function getType()
     {
-        return 'video';
+        return Type::VIDEO;
     }
 
     /**

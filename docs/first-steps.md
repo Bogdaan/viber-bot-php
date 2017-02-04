@@ -103,6 +103,8 @@ try {
 
 ```
 
+You can see more in **examples** dir.
+
 ## Resources
 
 - [Official documentation](https://developers.viber.com/public-accounts/index.html)

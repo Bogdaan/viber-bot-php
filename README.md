@@ -69,6 +69,8 @@ $bot
 ->run();
 ```
 
+See more in **examples** directory.
+
 ## Read more
 
 - [Create you first Viber bot](docs/first-steps.md)

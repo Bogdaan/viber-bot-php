@@ -12,18 +12,18 @@ use Viber\Api\Message;
 class Location extends Message
 {
     /**
-     * Location coordinates.
+     * Location coordinates. With "lat" and "lon" keys
      *
      * @var array
      */
-    protected $location;
+    protected $location = ['lat' => 0, 'lon' => 0];
 
     /**
      * {@inheritdoc}
      */
     public function getType()
     {
-        return 'location';
+        return Type::LOCATION;
     }
 
     /**
@@ -49,7 +49,7 @@ class Location extends Message
     /**
      * Set the value of Location coordinates.
      *
-     * @param array location [lat => 0, lng => 0]
+     * @param array location [lat => 0, lon => 0]
      *
      * @return self
      */
@@ -60,4 +60,31 @@ class Location extends Message
         return $this;
     }
 
+    /**
+     * Set latitude coordinate part
+     *
+     * @param float $lat
+     *
+     * @return self
+     */
+    public function setLat($lat)
+    {
+        $this->location['lat'] = $lat;
+
+        return $this;
+    }
+
+    /**
+     * Set longitude coordinate part
+     *
+     * @param float $lon
+     *
+     * @return self
+     */
+    public function setLng($lon)
+    {
+        $this->location['lon'] = $lon;
+
+        return $this;
+    }
 }

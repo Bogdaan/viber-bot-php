@@ -23,7 +23,7 @@ class Url extends Message
      */
     public function getType()
     {
-        return 'url';
+        return Type::URL;
     }
 
     /**

@@ -34,7 +34,7 @@ class Picture extends Message
      */
     public function getType()
     {
-        return 'picture';
+        return Type::PICTURE;
     }
 
     /**

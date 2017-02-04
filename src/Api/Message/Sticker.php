@@ -25,7 +25,7 @@ class Sticker extends Message
      */
     public function getType()
     {
-        return 'text';
+        return Type::STICKER;
     }
 
     /**
@@ -34,7 +34,7 @@ class Sticker extends Message
     public function toArray()
     {
         return array_merge(parent::toArray(), [
-            'sticker_id' => $this->getStickerId()
+            'sticker_id' => $this->getStickerId(),
         ]);
     }
 

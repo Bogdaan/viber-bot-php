@@ -30,7 +30,7 @@ class Contact extends Message
      */
     public function getType()
     {
-        return 'contact';
+        return Type::CONTACT;
     }
 
     /**
@@ -39,8 +39,10 @@ class Contact extends Message
     public function toArray()
     {
         return array_merge(parent::toArray(), [
-            'name' => $this->getName(),
-            'phone_number' => $this->getPhoneNumber()
+            'contact' => [
+                'name' => $this->getName(),
+                'phone_number' => $this->getPhoneNumber()
+            ]
         ]);
     }
 
