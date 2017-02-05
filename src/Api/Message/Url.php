@@ -59,5 +59,4 @@ class Url extends Message
 
         return $this;
     }
-
 }

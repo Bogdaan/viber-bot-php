@@ -27,5 +27,4 @@ class Unsubscribed extends Event
     {
         return $this->user_id;
     }
-
 }

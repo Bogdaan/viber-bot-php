@@ -197,5 +197,4 @@ class Message extends Entity
 
         return $this;
     }
-
 }

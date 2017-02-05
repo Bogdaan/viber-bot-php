@@ -66,7 +66,7 @@ class Entity
         foreach ($entity as $name => &$value) {
             if (is_null($value)) {
                 unset($entity[$name]);
-            } else if ($value instanceof Entity) {
+            } elseif ($value instanceof Entity) {
                 $value = $value->toArray();
             }
         }

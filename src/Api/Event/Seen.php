@@ -26,5 +26,4 @@ class Seen extends Event
     {
         return $this->user_id;
     }
-
 }

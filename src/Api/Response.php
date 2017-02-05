@@ -4,7 +4,6 @@ namespace Viber\Api;
 
 use Viber\Api\Exception\ApiException;
 
-
 /**
  * Manage backend response, translate api error ot exception
  *

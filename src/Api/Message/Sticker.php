@@ -61,5 +61,4 @@ class Sticker extends Message
 
         return $this;
     }
-
 }

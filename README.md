@@ -1,6 +1,10 @@
 # PHP sdk for Viber api
 
+[![Build
+Status](https://secure.travis-ci.org/Bogdaan/Distance.png)](http://travis-ci.org/Bogdaan/viber-bot-php)
+
 Library to develop a bot for the Viber platform. [Create you first Viber bot setp by step](docs/first-steps.md)
+See demo at [viber chat](viber://pa?chatURI=viber-bot-php&context=github.com)
 
 ## Installation
 
@@ -52,6 +56,53 @@ try {
 ```
 
 See more in **examples** directory.
+
+## Library structure
+
+```
+.
+├── Api
+│   ├── Entity.php               
+│   ├── Event                     # all remote events ("callbacks")
+│   │   ├── Conversation.php      # fires when user open 1v1 chat
+│   │   ├── Delivered.php         # fires when message delivered (for each device)
+│   │   ├── Factory.php           # Event factory
+│   │   ├── Failed.php            # fires when delivery failed (for each device)
+│   │   ├── Message.php           # fires when user send message
+│   │   ├── Seen.php              # fires when user read message (for each device)
+│   │   ├── Subscribed.php        # fires when user subscribe to PA
+│   │   ├── Type.php              # available types
+│   │   └── Unsubscribed.php      # fires when user unsubscribed
+│   ├── Event.php                 # base class for all events
+│   ├── Exception                 #
+│   │   └── ApiException.php      # remote or logic error
+│   ├── Keyboard                  #
+│   │   └── Button.php            # all types of buttons here
+│   ├── Keyboard.php              # button container
+│   ├── Message                   #
+│   │   ├── Contact.php           #
+│   │   ├── Factory.php           #
+│   │   ├── File.php              #
+│   │   ├── Location.php          #
+│   │   ├── Picture.php           #
+│   │   ├── Sticker.php           #
+│   │   ├── Text.php              #
+│   │   ├── Type.php              # available message types
+│   │   ├── Url.php               #
+│   │   └── Video.php             #
+│   ├── Message.php               # base class for all messages
+│   ├── Response.php              # wrap api response
+│   ├── Sender.php                # represent bot-sender
+│   ├── Signature.php             # signature helper (verify or create sign)
+│   ├── User                      #
+│   │   └── State.php             # user state (online/offline etc)
+│   └── User.php                  # viber user
+├── Bot                           #
+│   └── Manager.php               # manage bot closures
+├── Bot.php                       # bot class
+└── Client.php                    # api client
+```
+
 
 ## Read more
 

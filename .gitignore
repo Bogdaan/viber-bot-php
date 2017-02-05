@@ -5,3 +5,4 @@ composer.lock
 .idea
 .DS_STORE
 /examples/config.php
+.php_cs.cache

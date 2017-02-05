@@ -155,5 +155,4 @@ class Video extends Message
 
         return $this;
     }
-
 }

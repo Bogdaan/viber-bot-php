@@ -93,5 +93,4 @@ class Contact extends Message
 
         return $this;
     }
-
 }
