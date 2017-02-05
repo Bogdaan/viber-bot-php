@@ -59,5 +59,4 @@ class Text extends Message
 
         return $this;
     }
-
 }

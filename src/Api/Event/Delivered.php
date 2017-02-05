@@ -27,5 +27,4 @@ class Delivered extends Event
     {
         return $this->user_id;
     }
-
 }

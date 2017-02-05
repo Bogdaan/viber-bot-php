@@ -45,6 +45,4 @@ class Failed extends Event
     {
         return $this->dsc;
     }
-
-
 }

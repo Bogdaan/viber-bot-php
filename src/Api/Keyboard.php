@@ -140,5 +140,4 @@ class Keyboard extends Entity
 
         return $this;
     }
-
 }

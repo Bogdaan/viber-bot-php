@@ -220,5 +220,4 @@ class User extends Entity
     {
         return $this->mnc;
     }
-
 }

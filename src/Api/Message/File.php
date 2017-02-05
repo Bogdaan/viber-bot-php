@@ -126,5 +126,4 @@ class File extends Message
 
         return $this;
     }
-
 }

@@ -116,7 +116,7 @@ class Bot
      */
     public function onConversation(\Closure $handler)
     {
-        $this->managers[] = new Manager(function(Event $event) {
+        $this->managers[] = new Manager(function (Event $event) {
             return ($event instanceof \Viber\Api\Event\Conversation);
         }, $handler);
         return $this;

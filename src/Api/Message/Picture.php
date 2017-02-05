@@ -120,5 +120,4 @@ class Picture extends Message
 
         return $this;
     }
-
 }

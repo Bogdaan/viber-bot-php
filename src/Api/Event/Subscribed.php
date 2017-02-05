@@ -18,7 +18,7 @@ class Subscribed extends Event
     protected $user;
 
     /**
-     * Get the value of Viber user 
+     * Get the value of Viber user
      *
      * @return \Viber\Api\User
      */
@@ -26,5 +26,4 @@ class Subscribed extends Event
     {
         return $this->user;
     }
-
 }

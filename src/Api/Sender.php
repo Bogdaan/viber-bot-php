@@ -124,5 +124,4 @@ class Sender extends Entity
 
         return $this;
     }
-
 }
