@@ -4,7 +4,7 @@
 Status](https://secure.travis-ci.org/Bogdaan/Distance.png)](http://travis-ci.org/Bogdaan/viber-bot-php)
 
 Library to develop a bot for the Viber platform. [Create you first Viber bot setp by step](docs/first-steps.md)
-See demo at [viber chat](viber://pa?chatURI=viber-bot-php&context=github.com)
+See demo at `viber://pa?chatURI=viber-bot-php&context=github.com`
 
 ## Installation
 
@@ -14,7 +14,7 @@ composer require bogdaan/viber-bot-php
 
 ## Example
 
-```
+```php
 <?php
 
 require_once("../vendor/autoload.php");
@@ -111,7 +111,7 @@ See more in **examples** directory.
 - [REST api documentation](https://developers.viber.com/api/rest-bot-api/index.html)
 - [SDK for node](https://github.com/Viber/viber-bot-node)
 - [SDK for python](https://github.com/Viber/viber-bot-python)
-
+- [Project page](http://viber.hcbogdan.com/)
 
 ## Features
 
