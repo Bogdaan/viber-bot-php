@@ -21,5 +21,5 @@ try {
     $result = $client->setWebhook($webhookUrl);
     echo "Success!\n"; // print_r($result);
 } catch (Exception $e) {
-    echo "Error: ". $e->getError() ."\n";
+    echo "Error: ". $e->getMessage() ."\n";
 }
