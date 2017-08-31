@@ -16,4 +16,5 @@ interface Type
     const UNSUBSCRIBED = 'unsubscribed';
     const CONVERSATION = 'conversation_started';
     const MESSAGE = 'message';
+    const WEBHOOK = 'webhook';
 }
