@@ -35,6 +35,8 @@ class Factory
                     return new Seen($data);
                 case Type::FAILED:
                     return new Failed($data);
+                case Type::WEBHOOK:
+                    return new Webhook($data);
             }
         }
         throw new ApiException('Unknow event data');
