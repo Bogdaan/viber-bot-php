@@ -88,6 +88,7 @@ class Bot
         $this->managers[] = new Manager(function (Event $event) use ($regexp) {
             return (
                 $event instanceof \Viber\Api\Event\Message
+                && $event->getMessage() instanceof \Viber\Api\Message\Text
                 && preg_match($regexp, $event->getMessage()->getText())
             );
         }, $handler);
@@ -171,6 +172,7 @@ class Bot
         if (is_null($event)) {
             // check body
             $eventBody = $this->getInputBody();
+
             if (!Signature::isValid(
                 $this->getSignHeaderValue(),
                 $eventBody,

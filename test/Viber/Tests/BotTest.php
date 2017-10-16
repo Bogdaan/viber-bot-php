@@ -118,9 +118,10 @@ class BotTest extends TestCase
 
         $stub->method('getInputBody')
             ->willReturn($inputBody);
+
         $stub->method('getSignHeaderValue')
             ->willReturn(
-                Signature::make('-', $inputBody)
+                Signature::make($inputBody, '-')
             );
 
         $stub->run();
@@ -144,7 +145,7 @@ class BotTest extends TestCase
             ->willReturn($inputBody);
         $stub->method('getSignHeaderValue')
             ->willReturn(
-                Signature::make('-', $inputBody)
+                Signature::make($inputBody, '-')
             );
 
         $stub->run();
@@ -168,7 +169,7 @@ class BotTest extends TestCase
             ->willReturn($inputBody);
         $stub->method('getSignHeaderValue')
             ->willReturn(
-                Signature::make('-', $inputBody)
+                Signature::make($inputBody, '-')
             );
 
         $stub->run();
@@ -191,7 +192,7 @@ class BotTest extends TestCase
             ->willReturn($inputBody);
         $stub->method('getSignHeaderValue')
             ->willReturn(
-                Signature::make('-', $inputBody)
+                Signature::make($inputBody, '-')
             );
 
         $stub->run();
