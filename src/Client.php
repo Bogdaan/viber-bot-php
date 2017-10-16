@@ -77,7 +77,7 @@ class Client
      * @param  mixed  $data   method data
      * @return \Viber\Api\Response
      */
-    public function call($method, array $data)
+    public function call($method, $data)
     {
         try {
             $response = $this->http->request('POST', $method, [
@@ -125,7 +125,7 @@ class Client
      */
     public function getAccountInfo()
     {
-        return $this->call('get_account_info', []);
+        return $this->call('get_account_info', [ 1 => 1]);
     }
 
     /**
