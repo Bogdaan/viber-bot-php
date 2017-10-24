@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.5
+
++ signature inside QS
+
 ## 0.0.4
 
 + fix #13, fix #12, fix unit test
