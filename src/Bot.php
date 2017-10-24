@@ -131,9 +131,14 @@ class Bot
      */
     public function getSignHeaderValue()
     {
-        $headerName = 'HTTP_X_VIBER_CONTENT_SIGNATURE';
-        if (!isset($_SERVER[$headerName])) {
-            throw new \RuntimeException($headerName.' header not found', 1);
+        $signature = '';
+        if (isset($_SERVER['HTTP_X_VIBER_CONTENT_SIGNATURE'])) {
+            $signature = $_SERVER['HTTP_X_VIBER_CONTENT_SIGNATURE'];
+        } elseif (isset($_GET['sig'])) {
+            $signature = $_GET['sig'];
+        }
+        if (empty($signature)) {
+            throw new \RuntimeException('Signature header not found', 1);
         }
         return $_SERVER[$headerName];
     }
