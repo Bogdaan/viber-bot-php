@@ -140,7 +140,7 @@ class Bot
         if (empty($signature)) {
             throw new \RuntimeException('Signature header not found', 1);
         }
-        return $_SERVER[$headerName];
+        return $signature;
     }
 
     /**
