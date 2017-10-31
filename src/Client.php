@@ -53,8 +53,8 @@ class Client
         $httpInit = [
             'base_uri' => self::BASE_URI,
         ];
-        if (isset($param['http']) && is_array($param['http'])) {
-            $httpInit = array_merge($param['http'], $httpInit);
+        if (isset($options['http']) && is_array($options['http'])) {
+            $httpInit = array_merge($options['http'], $httpInit);
         }
         $this->http = new \GuzzleHttp\Client($httpInit);
     }
@@ -74,7 +74,7 @@ class Client
      *
      * @throws \Viber\Api\Exception\ApiException
      * @param  string $method method name
-     * @param  mixed  $data   method data
+     * @param  mixed $data method data
      * @return \Viber\Api\Response
      */
     public function call($method, $data)
@@ -84,11 +84,14 @@ class Client
                 'headers' => [
                     'X-Viber-Auth-Token' => $this->token
                 ],
-                'json' => $data
+                'json'    => $data
             ]);
+
             return \Viber\Api\Response::create($response);
-        } catch (\RuntimeException $e) {
+        } catch (ApiException $e) {
             throw new ApiException($e->getMessage(), $e->getCode(), $e);
+        } catch (\RuntimeException $e) {
+            throw new \RuntimeException($e);
         }
     }
 
@@ -100,8 +103,9 @@ class Client
      *
      * @see \Viber\Api\Event\Type
      * @throws \Viber\Api\Exception\ApiException
-     * @param string     $url          webhook url
-     * @param array|null $eventTypes   subscribe to certain events
+     * @param string $url webhook url
+     * @param array|null $eventTypes subscribe to certain events
+     * @return \Viber\Api\Response
      */
     public function setWebhook($url, $eventTypes = null)
     {
@@ -109,10 +113,11 @@ class Client
             $eventTypes = [Type::SUBSCRIBED, Type::CONVERSATION, Type::MESSAGE];
         }
         if (empty($url) || !preg_match('|^https://.*|s', $url)) {
-            throw new ApiException('Invalid webhook url: '.$url);
+            throw new ApiException('Invalid webhook url: ' . $url);
         }
+
         return $this->call('set_webhook', [
-            'url' => $url,
+            'url'         => $url,
             'event_types' => $eventTypes,
         ]);
     }
@@ -125,7 +130,7 @@ class Client
      */
     public function getAccountInfo()
     {
-        return $this->call('get_account_info', [ 1 => 1]);
+        return $this->call('get_account_info', [1 => 1]);
     }
 
     /**
