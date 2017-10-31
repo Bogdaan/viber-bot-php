@@ -86,12 +86,9 @@ class Client
                 ],
                 'json'    => $data
             ]);
-
             return \Viber\Api\Response::create($response);
-        } catch (ApiException $e) {
-            throw new ApiException($e->getMessage(), $e->getCode(), $e);
         } catch (\RuntimeException $e) {
-            throw new \RuntimeException($e);
+            throw new ApiException($e->getMessage(), $e->getCode(), $e);
         }
     }
 

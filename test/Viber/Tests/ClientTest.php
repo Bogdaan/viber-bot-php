@@ -38,13 +38,17 @@ class ClientTest extends TestCase
 
     /**
      * @expectedException \Viber\Api\Exception\ApiException
-     * @expectedExceptionMessageRegExp |Remote error: Invalid.*|
+     * @expectedExceptionMessageRegExp |Remote error: ...|
      */
     public function testServerError()
     {
+        $responseData = json_encode([
+            'status' => 3,
+            'status_message' => '...',
+        ]);
         $handler = HandlerStack::create(
             new MockHandler([
-                new Response(400),
+                new Response(200, [], $responseData),
             ])
         );
         $client = new Client([
