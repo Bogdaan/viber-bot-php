@@ -28,6 +28,13 @@ class Contact extends Message
     /**
      * {@inheritdoc}
      */
+    protected $propertiesMap = [
+        'contact' => 'setConcat'
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     public function getType()
     {
         return Type::CONTACT;
@@ -90,6 +97,20 @@ class Contact extends Message
     public function setPhoneNumber($phone_number)
     {
         $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of Phone number of the contact from contact array.
+     *
+     * @param array contact
+     *
+     * @return self
+     */
+    public function setConcat($contact)
+    {
+        $this->phone_number = $contact['phone_number'];
 
         return $this;
     }
