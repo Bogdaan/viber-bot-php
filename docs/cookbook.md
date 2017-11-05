@@ -68,4 +68,27 @@ $bot
 });
 ```
 
+## How to request user phone?
+
+You need to setup minimal API version to 3:
+
+```php
+$bot->getClient()->sendMessage(
+    (new \Viber\Api\Message\Text())
+    ->setSender($botSender)
+    ->setReceiver($event->getSender()->getId())
+    ->setMinApiVersion(3)
+    ->setText("We need your phone number")
+    ->setKeyboard(
+    (new \Viber\Api\Keyboard())
+        ->setButtons([
+            (new \Viber\Api\Keyboard\Button())
+                    ->setActionType('share-phone')
+                    ->setActionBody('reply')
+                    ->setText('Send phone number')
+                ])
+    )
+);
+```
+
 ## Integration (api.ai, botan.io and others)
