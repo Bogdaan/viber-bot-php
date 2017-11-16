@@ -106,4 +106,4 @@ You can see more in **examples** directory.
 
 ## Resources
 
-- [Official documentation](https://developers.viber.com/public-accounts/index.html)
+- [Official documentation](https://developers.viber.com/docs/api/rest-bot-api/)
