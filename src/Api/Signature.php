@@ -31,6 +31,6 @@ class Signature
      */
     public static function isValid($sign, $messageBody, $token)
     {
-        return ($sign == self::make($messageBody, $token));
+        return hash_equals($sign, self::make($messageBody, $token));
     }
 }
