@@ -79,6 +79,7 @@ See more in **examples** directory.
 │   │   └── Button.php            # all types of buttons here
 │   ├── Keyboard.php              # button container
 │   ├── Message                   #
+│   │   ├── CarouselContent.php   #
 │   │   ├── Contact.php           #
 │   │   ├── Factory.php           #
 │   │   ├── File.php              #

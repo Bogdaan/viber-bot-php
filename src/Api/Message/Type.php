@@ -17,4 +17,5 @@ interface Type
     const CONTACT = 'contact';
     const URL = 'url';
     const LOCATION = 'location';
+    const RICH_MEDIA = 'rich_media';
 }
