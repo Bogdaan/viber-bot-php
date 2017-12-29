@@ -38,7 +38,7 @@ try {
     ->onConversation(function ($event) use ($bot, $botSender, $log) {
         $log->info('onConversation handler');
         $buttons = [];
-        for ($i=0; $i<=7; $i++) {
+        for ($i=0; $i<=8; $i++) {
             $buttons[] =
                 (new \Viber\Api\Keyboard\Button())
                 ->setColumns(1)
@@ -195,6 +195,36 @@ try {
                     ->setReceiver($receiverId)
                     ->setSize(2 * 1024 * 1024)
                     ->setMedia('http://techslides.com/demos/sample-videos/small.mp4')
+                );
+                break;
+            //
+            case 8:
+                $client->sendMessage(
+                    (new \Viber\Api\Message\CarouselContent())
+                        ->setSender($botSender)
+                        ->setReceiver($receiverId)
+                        ->setButtonsGroupColumns(6)
+                        ->setButtonsGroupRows(6)
+                        ->setBgColor("#FFFFFF")
+                        ->setButtons([
+                            (new \Viber\Api\Keyboard\Button())
+                                ->setColumns(6)
+                                ->setRows(3)
+                                ->setActionType('open-url')
+                                ->setActionBody('https://www.google.com')
+                                ->setImage("https://i.vimeocdn.com/portrait/58832_300x300"),
+
+                            (new \Viber\Api\Keyboard\Button())
+                                ->setColumns(6)
+                                ->setRows(3)
+                                ->setActionType('reply')
+                                ->setActionBody('https://www.google.com')
+                                ->setText("<font color=#ffffff>Buy</font>")
+                                ->setTextSize("large")
+                                ->setTextVAlign("middle")
+                                ->setTextHAlign("middle")
+                                ->setImage("https://s14.postimg.org/4mmt4rw1t/Button.png")
+                        ])
                 );
                 break;
         }
