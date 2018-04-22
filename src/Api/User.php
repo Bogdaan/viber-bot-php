@@ -2,7 +2,6 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Entity;
 use Viber\Api\Exception\ApiException;
 
 /**
@@ -92,7 +91,7 @@ class User extends Entity
      */
     public function __construct($properties)
     {
-        if (!is_array($properties) && !$properties instanceof ArrayAccess) {
+        if (!is_array($properties) && !$properties instanceof \ArrayAccess) {
             throw new ApiException('Properties must be an array or implement ArrayAccess');
         }
         foreach ($properties as $propertyName => $propertyValue) {
@@ -117,7 +116,7 @@ class User extends Entity
             'api_version' => $this->getApiVersion(),
             'viber_version' => $this->getViberVersion(),
             'mcc' => $this->getMcc(),
-            'mnc' => $this->getMnc()
+            'mnc' => $this->getMnc(),
         ];
     }
 

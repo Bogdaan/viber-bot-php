@@ -2,7 +2,6 @@
 
 namespace Viber\Api\Event;
 
-use Viber\User;
 use Viber\Api\Event;
 
 /**

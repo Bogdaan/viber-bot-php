@@ -56,7 +56,7 @@ class Video extends Message
             'media' => $this->getMedia(),
             'size' => $this->getSize(),
             'duration' => $this->getDuration(),
-            'thumbnail' => $this->getThumbnail()
+            'thumbnail' => $this->getThumbnail(),
         ]);
     }
 
@@ -75,7 +75,7 @@ class Video extends Message
      *
      * @param string media
      *
-     * @return self
+     * @return static
      */
     public function setMedia($media)
     {
@@ -99,7 +99,7 @@ class Video extends Message
      *
      * @param integer size
      *
-     * @return self
+     * @return static
      */
     public function setSize($size)
     {
@@ -123,7 +123,7 @@ class Video extends Message
      *
      * @param integer duration
      *
-     * @return self
+     * @return static
      */
     public function setDuration($duration)
     {
@@ -147,7 +147,7 @@ class Video extends Message
      *
      * @param string thumbnail
      *
-     * @return self
+     * @return static
      */
     public function setThumbnail($thumbnail)
     {

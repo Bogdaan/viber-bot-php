@@ -2,8 +2,6 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Entity;
-
 /**
  * Message keyboard
  *
@@ -51,7 +49,7 @@ class Keyboard extends Entity
             'Type' => 'keyboard',
             'Buttons' => $this->getButtonsApiArray(),
             'BgColor' => $this->getBgColor(),
-            'DefaultHeight' => $this->getDefaultHeight()
+            'DefaultHeight' => $this->getDefaultHeight(),
         ];
     }
 

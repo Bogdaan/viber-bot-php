@@ -46,7 +46,7 @@ class State extends Entity
     protected $propertiesMap = [
         'id' => 'setId',
         'online_status' => 'setStatus',
-        'online_status_message' => 'setMessage'
+        'online_status_message' => 'setMessage',
     ];
 
     /**
@@ -57,7 +57,7 @@ class State extends Entity
         return [
             'id' => $this->getId(),
             'online_status' => $this->getStatus(),
-            'online_status_message' => $this->getMessage()
+            'online_status_message' => $this->getMessage(),
         ];
     }
 

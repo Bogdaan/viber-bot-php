@@ -2,6 +2,8 @@
 
 namespace Viber\Api;
 
+use Viber\Api\Exception\ApiException;
+
 /**
  * Api entity interface
  *
@@ -20,13 +22,14 @@ class Entity
      * Make new instance from api response array
      *
      * @param mixed $properties list of properties
+     * @throws \Viber\Api\Exception\ApiException
      */
     public function __construct($properties = null)
     {
-        if (is_null($properties)) {
+        if (null === $properties) {
             return;
         }
-        if (!is_array($properties) && !$properties instanceof ArrayAccess) {
+        if (!is_array($properties) && !$properties instanceof \ArrayAccess) {
             throw new ApiException('Properties must be an array or implement ArrayAccess');
         }
         if (empty($this->propertiesMap)) { // no property map
@@ -64,7 +67,7 @@ class Entity
     {
         $entity = $this->toArray();
         foreach ($entity as $name => &$value) {
-            if (is_null($value)) {
+            if (null === $value) {
                 unset($entity[$name]);
             } elseif ($value instanceof Entity) {
                 $value = $value->toArray();

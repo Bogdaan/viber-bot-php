@@ -38,7 +38,7 @@ class Message extends Event
     /**
      * Get the value of Message data
      *
-     * @return \Viber\Api\Message
+     * @return \Viber\Api\Message|\Viber\Api\Message\Text
      */
     public function getMessage()
     {

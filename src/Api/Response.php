@@ -23,26 +23,27 @@ class Response
      *
      * @param  \GuzzleHttp\Psr7\Response $response network response
      * @return \Viber\Api\Response
+     * @throws \Viber\Api\Exception\ApiException
      */
     public static function create(\GuzzleHttp\Psr7\Response $response)
     {
         // - validate body
         $data = json_decode($response->getBody(), true);
         if (empty($data)) {
-            throw new ApiException("Invalid response body");
+            throw new ApiException('Invalid response body');
         }
         // - validate internal data
         if (isset($data['status'])) {
             if ($data['status'] != 0) {
-                throw new ApiException('Remote error: '.
-                    (isset($data['status_message'])? $data['status_message']: '-'),
+                throw new ApiException('Remote error: ' .
+                    (isset($data['status_message']) ? $data['status_message'] : '-'),
                     $data['status']);
             }
             $item = new self();
             $item->data = $data;
             return $item;
         }
-        throw new ApiException("Invalid response json");
+        throw new ApiException('Invalid response json');
     }
 
     /**
