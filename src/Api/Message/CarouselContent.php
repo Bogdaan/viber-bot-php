@@ -65,7 +65,7 @@ class CarouselContent extends Message
                 'ButtonsGroupColumns' => $this->getButtonsGroupColumns(),
                 'ButtonsGroupRows' => $this->getButtonsGroupRows(),
                 'BgColor' => $this->getBgColor(),
-                'Buttons' => $this->getButtonsApiArray()
+                'Buttons' => $this->getButtonsApiArray(),
             ]
         ]);
     }
@@ -177,6 +177,7 @@ class CarouselContent extends Message
         foreach ($this->getButtons() as $i) {
             $buttons[] = $i->toApiArray();
         }
+
         return $buttons;
     }
 }

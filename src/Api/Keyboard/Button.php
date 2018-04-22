@@ -157,7 +157,7 @@ class Button extends Entity
             'TextVAlign' => $this->getTextVAlign(),
             'TextHAlign' => $this->getTextHAlign(),
             'TextOpacity' => $this->getTextOpacity(),
-            'TextSize' => $this->getTextSize()
+            'TextSize' => $this->getTextSize(),
         ];
     }
 

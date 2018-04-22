@@ -45,7 +45,7 @@ class Picture extends Message
         return array_merge(parent::toArray(), [
             'text' => $this->getText(),
             'media' => $this->getMedia(),
-            'thumbnail' => $this->getThumbnail()
+            'thumbnail' => $this->getThumbnail(),
         ]);
     }
 

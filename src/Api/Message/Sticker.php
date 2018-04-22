@@ -53,7 +53,7 @@ class Sticker extends Message
      *
      * @param integer sticker_id
      *
-     * @return self
+     * @return static
      */
     public function setStickerId($sticker_id)
     {

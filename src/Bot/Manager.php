@@ -28,8 +28,8 @@ class Manager
     /**
      * Create new event manager (event checker and event handler)
      *
-     * @param  Closure $checker
-     * @param  Closure $handler
+     * @param \Closure $checker
+     * @param \Closure $handler
      */
     public function __construct(\Closure $checker, \Closure $handler)
     {

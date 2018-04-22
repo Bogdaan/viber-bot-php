@@ -234,6 +234,36 @@ class BotTest extends TestCase
         $this->assertEquals(1, $totalCalls);
     }
 
+    public function testOnPicture()
+    {
+        $bot = new Bot(['token' => '-']);
+        $totalCalls = 0;
+        $bot
+            ->onPicture(function ($e) use (&$totalCalls) {
+                $totalCalls++;
+            })
+            ->run(
+                new \Viber\Api\Event\Message([
+                    "event" => "message",
+                    "timestamp" => 1457764197627,
+                    "message_token" => 4912661846655238145,
+                    "sender" => [
+                        "id" => "01234567890A=",
+                        "name" => "John McClane",
+                        "avatar" => "http://avatar.example.com"
+                    ],
+                    "message" => [
+                        "type" => "picture",
+                        "text" => "Photo description",
+                        "media" => "http://www.images.com/img.jpg",
+                        "thumbnail" => "http://www.images.com/thumb.jpg",
+                        "tracking_data" => "tracking data"
+                    ]
+                ])
+            );
+        $this->assertEquals(1, $totalCalls);
+    }
+
     public function testOnConversation()
     {
         $bot = new Bot(['token' => '-']);

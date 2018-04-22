@@ -51,7 +51,7 @@ class Location extends Message
      *
      * @param array location [lat => 0, lon => 0]
      *
-     * @return self
+     * @return static
      */
     public function setLocation(array $location)
     {
@@ -65,7 +65,7 @@ class Location extends Message
      *
      * @param float $lat
      *
-     * @return self
+     * @return static
      */
     public function setLat($lat)
     {
@@ -79,7 +79,7 @@ class Location extends Message
      *
      * @param float $lon
      *
-     * @return self
+     * @return static
      */
     public function setLng($lon)
     {

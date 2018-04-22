@@ -2,8 +2,6 @@
 
 namespace Viber\Api;
 
-use Viber\Api\User;
-use Viber\Api\Sender;
 use Viber\Api\Message\Factory as MessageFactory;
 
 /**
@@ -38,16 +36,17 @@ class Event
      * Init event from api array
      *
      * @param array $properties
+     * @throws \Viber\Api\Exception\ApiException
      */
     public function __construct(array $properties)
     {
         foreach ($properties as $propName => $propValue) {
             if (property_exists(get_class($this), $propName)) {
-                if ($propName == 'sender') {
+                if ('sender' === $propName) {
                     $this->sender = new Sender($propValue);
-                } elseif ($propName == 'message') {
+                } elseif ('message' === $propName) {
                     $this->message = MessageFactory::makeFromApi($propValue);
-                } elseif ($propName == 'user') {
+                } elseif ('user' === $propName) {
                     $this->user = new User($propValue);
                 } else {
                     $this->$propName = $propValue;
