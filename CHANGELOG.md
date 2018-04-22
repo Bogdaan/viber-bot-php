@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.12
++ improve code style
++ add onPicture method
+
 ## 0.0.5
 
 + signature inside QS
