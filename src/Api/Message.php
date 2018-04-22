@@ -2,8 +2,6 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Entity;
-
 /**
  * General message object
  *
@@ -64,7 +62,7 @@ class Message extends Entity
             'sender' => $this->getSender(),
             'tracking_data' => $this->getTrackingData(),
             'min_api_version' => $this->getMinApiVersion(),
-            'keyboard' => $this->getKeyboard()
+            'keyboard' => $this->getKeyboard(),
         ];
     }
 
@@ -83,7 +81,7 @@ class Message extends Entity
      *
      * @param string receiver
      *
-     * @return self
+     * @return static
      */
     public function setReceiver($receiver)
     {
@@ -117,7 +115,7 @@ class Message extends Entity
      *
      * @param \Viber\Api\Sender sender
      *
-     * @return self
+     * @return static
      */
     public function setSender(\Viber\Api\Sender $sender)
     {
@@ -141,7 +139,7 @@ class Message extends Entity
      *
      * @param string tracking_data
      *
-     * @return self
+     * @return static
      */
     public function setTrackingData($tracking_data)
     {
@@ -165,7 +163,7 @@ class Message extends Entity
      *
      * @param integer min_api_version
      *
-     * @return self
+     * @return static
      */
     public function setMinApiVersion($min_api_version)
     {
@@ -189,7 +187,7 @@ class Message extends Entity
      *
      * @param \Viber\Api\Keyboard keyboard
      *
-     * @return self
+     * @return static
      */
     public function setKeyboard(\Viber\Api\Keyboard $keyboard)
     {

@@ -51,7 +51,7 @@ class File extends Message
         return array_merge(parent::toArray(), [
             'media' => $this->getMedia(),
             'size' => $this->getSize(),
-            'file_name' => $this->getFileName()
+            'file_name' => $this->getFileName(),
         ]);
     }
 
@@ -70,7 +70,7 @@ class File extends Message
      *
      * @param string media
      *
-     * @return self
+     * @return static
      */
     public function setMedia($media)
     {
@@ -94,7 +94,7 @@ class File extends Message
      *
      * @param integer size
      *
-     * @return self
+     * @return static
      */
     public function setSize($size)
     {
@@ -118,7 +118,7 @@ class File extends Message
      *
      * @param string file_name
      *
-     * @return self
+     * @return static
      */
     public function setFileName($file_name)
     {

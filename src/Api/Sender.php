@@ -2,8 +2,6 @@
 
 namespace Viber\Api;
 
-use Viber\Api\Entity;
-
 /**
  * Message sender
  *
@@ -38,7 +36,7 @@ class Sender extends Entity
     protected $propertiesMap = [
         'id' => 'setId',
         'name' => 'setName',
-        'avatar' => 'setAvatar'
+        'avatar' => 'setAvatar',
     ];
 
     /**
@@ -49,7 +47,7 @@ class Sender extends Entity
         return [
             'id' => $this->getId(),
             'name' => $this->getName(),
-            'avatar' => $this->getAvatar()
+            'avatar' => $this->getAvatar(),
         ];
     }
 

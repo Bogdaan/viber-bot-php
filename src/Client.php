@@ -2,8 +2,8 @@
 
 namespace Viber;
 
-use Viber\Api\Event\Type;
 use Viber\Api\Message;
+use Viber\Api\Event\Type;
 use Viber\Api\Exception\ApiException;
 
 /**
@@ -84,7 +84,7 @@ class Client
                 'headers' => [
                     'X-Viber-Auth-Token' => $this->token
                 ],
-                'json'    => $data
+                'json' => $data
             ]);
             return \Viber\Api\Response::create($response);
         } catch (\RuntimeException $e) {
@@ -106,7 +106,7 @@ class Client
      */
     public function setWebhook($url, $eventTypes = null)
     {
-        if (is_null($eventTypes)) {
+        if (null === $eventTypes) {
             $eventTypes = [Type::SUBSCRIBED, Type::CONVERSATION, Type::MESSAGE];
         }
         if (empty($url) || !preg_match('|^https://.*|s', $url)) {
@@ -114,7 +114,7 @@ class Client
         }
 
         return $this->call('set_webhook', [
-            'url'         => $url,
+            'url' => $url,
             'event_types' => $eventTypes,
         ]);
     }

@@ -48,7 +48,7 @@ class Contact extends Message
         return array_merge(parent::toArray(), [
             'contact' => [
                 'name' => $this->getName(),
-                'phone_number' => $this->getPhoneNumber()
+                'phone_number' => $this->getPhoneNumber(),
             ]
         ]);
     }

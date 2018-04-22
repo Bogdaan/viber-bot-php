@@ -3,7 +3,6 @@
 namespace Viber;
 
 use Closure;
-use Viber\Client;
 use Viber\Bot\Manager;
 use Viber\Api\Event;
 use Viber\Api\Signature;
@@ -65,21 +64,22 @@ class Bot
     /**
      * Register event handler callback
      *
-     * @param \Closure  $checker checker function
-     * @param \Closure  $handler handler function
+     * @param \Closure $checker checker function
+     * @param \Closure $handler handler function
      *
      * @return \Viber\Bot
      */
     public function on(\Closure $checker, \Closure $handler)
     {
         $this->managers[] = new Manager($checker, $handler);
+
         return $this;
     }
 
     /**
      * Register text message handler by PCRE
      *
-     * @param  string  $regexp  valid regular expression
+     * @param  string $regexp valid regular expression
      * @param  Closure $handler event handler
      * @return \Viber\Bot
      */
@@ -92,6 +92,7 @@ class Bot
                 && preg_match($regexp, $event->getMessage()->getText())
             );
         }, $handler);
+
         return $this;
     }
 
@@ -106,13 +107,14 @@ class Bot
         $this->managers[] = new Manager(function (Event $event) {
             return ($event instanceof \Viber\Api\Event\Subscribed);
         }, $handler);
+
         return $this;
     }
 
     /**
      * Register conversation event handler
      *
-     * @param  Closure $handler valid function
+     * @param Closure $handler valid function
      * @return \Viber\Bot
      */
     public function onConversation(\Closure $handler)
@@ -120,6 +122,25 @@ class Bot
         $this->managers[] = new Manager(function (Event $event) {
             return ($event instanceof \Viber\Api\Event\Conversation);
         }, $handler);
+
+        return $this;
+    }
+
+    /**
+     * Register picture message handler
+     *
+     * @param Closure $handler event handler
+     * @return \Viber\Bot
+     */
+    public function onPicture(\Closure $handler)
+    {
+        $this->managers[] = new Manager(function (Event $event) {
+            return (
+                $event instanceof \Viber\Api\Event\Message
+                && $event->getMessage() instanceof \Viber\Api\Message\Picture
+            );
+        }, $handler);
+
         return $this;
     }
 
@@ -140,6 +161,7 @@ class Bot
         if (empty($signature)) {
             throw new \RuntimeException('Signature header not found', 1);
         }
+
         return $signature;
     }
 
@@ -174,7 +196,7 @@ class Bot
      */
     public function run($event = null)
     {
-        if (is_null($event)) {
+        if (null === $event) {
             // check body
             $eventBody = $this->getInputBody();
 
@@ -205,6 +227,7 @@ class Bot
                 break;
             }
         }
+
         return $this;
     }
 }
