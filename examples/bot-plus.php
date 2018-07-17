@@ -28,8 +28,6 @@ $botSender = new Sender([
 $log = new Logger('bot');
 $log->pushHandler(new StreamHandler('/tmp/bot.log'));
 
-$bot = null;
-
 try {
     // create bot instance
     $bot = new Bot(['token' => $apiKey]);
