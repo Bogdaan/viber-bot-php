@@ -139,6 +139,13 @@ class Button extends Entity
     protected $TextSize;
 
     /**
+     * Option for enable/disable display text on open-url action
+     *
+     * @var bool
+     */
+    protected $Silent;
+
+    /**
      * {@inheritDoc}
      */
     public function toArray()
@@ -158,6 +165,7 @@ class Button extends Entity
             'TextHAlign' => $this->getTextHAlign(),
             'TextOpacity' => $this->getTextOpacity(),
             'TextSize' => $this->getTextSize(),
+            'Silent' => $this->isSilent(),
         ];
     }
 
@@ -493,6 +501,26 @@ class Button extends Entity
     public function setTextSize($TextSize)
     {
         $this->TextSize = $TextSize;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSilent()
+    {
+        return (bool) $this->Silent;
+    }
+
+    /**
+     * @param bool $Silent
+     *
+     * @return self
+     */
+    public function setSilent($Silent)
+    {
+        $this->Silent = $Silent;
 
         return $this;
     }
