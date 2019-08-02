@@ -41,6 +41,16 @@ class Keyboard extends Entity
     protected $DefaultHeight;
 
     /**
+     * optional (api level 4). Customize the keyboard input field.
+     * regular-display regular size input field.
+     * minimized - display input field minimized by default.
+     * hidden - hide the input field
+     *
+     * @var string
+     */
+    protected $InputFieldState;
+
+    /**
      * {@inheritDoc}
      */
     public function toArray()
@@ -135,6 +145,26 @@ class Keyboard extends Entity
     public function setDefaultHeight($DefaultHeight)
     {
         $this->DefaultHeight = $DefaultHeight;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInputFieldState()
+    {
+        return $this->InputFieldState;
+    }
+
+    /**
+     * @param boolean DefaultHeight
+     *
+     * @return self
+     */
+    public function setInputFieldState($fieldState)
+    {
+        $this->InputFieldState = $fieldState;
 
         return $this;
     }
