@@ -10,6 +10,13 @@ namespace Viber\Api;
 class Message extends Entity
 {
     /**
+     * Viber user id array
+     *
+     * @var array
+     */
+    protected $broadcast_list;
+
+    /**
      * Viber user id
      *
      * @var integer
@@ -63,8 +70,33 @@ class Message extends Entity
             'tracking_data' => $this->getTrackingData(),
             'min_api_version' => $this->getMinApiVersion(),
             'keyboard' => $this->getKeyboard(),
+            'broadcast_list' => $this->getBroadcastList()
         ];
     }
+
+    /**
+     * Get the value of Viber user's IDs
+     *
+     * @return array
+     */
+    public function getBroadcastList()
+    {
+        return $this->broadcast_list;
+    }
+
+    /**
+     * Set the value of Viber user's IDs
+     *
+     * @param array IDs
+     *
+     * @return static
+     */
+    public function setBroadcastList($broadcast_list)
+    {
+        $this->broadcast_list = $broadcast_list;
+        return $this;
+    }
+
 
     /**
      * Get the value of Viber user
