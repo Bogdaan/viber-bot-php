@@ -120,6 +120,18 @@ class Client
     }
 
     /**
+     * Delete webhook url.
+     *
+     * @return \Viber\Api\Response
+     */
+    public function deleteWebhook()
+    {
+        return $this->call('set_webhook', [
+            'url' => '',
+        ]);
+    }
+
+    /**
      * Fetch the public account’s details as registered in Viber
      *
      * @throws \Viber\Api\Exception\ApiException
