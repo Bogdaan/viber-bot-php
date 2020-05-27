@@ -28,7 +28,7 @@ class Response
     public static function create(\GuzzleHttp\Psr7\Response $response)
     {
         // - validate body
-        $data = json_decode($response->getBody(), true);
+        $data = json_decode($response->getBody(), true, 512, JSON_BIGINT_AS_STRING);
         if (empty($data)) {
             throw new ApiException('Invalid response body');
         }

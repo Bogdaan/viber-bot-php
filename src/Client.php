@@ -187,4 +187,15 @@ class Client
     {
         return $this->call('send_message', $message->toApiArray());
     }
+
+    /**
+     * Send messages to multiple Viber users who subscribe to the PA.
+     *
+     * @param  \Viber\Api\Message $message
+     * @return \Viber\Api\Response
+     */
+    public function broadcastMessage(Message $message)
+    {
+        return $this->call('broadcast_message', $message->toApiArray());
+    }
 }

@@ -30,6 +30,22 @@ class Picture extends Message
     protected $thumbnail;
 
     /**
+     * Size of the file in bytes
+     *
+     * @var integer
+     */
+    protected $size;
+
+    /**
+     * Name of the file.
+     * File name should include extension.
+     * Max 256 characters (including file extension)
+     *
+     * @var string
+     */
+    protected $file_name;
+
+    /**
      * {@inheritdoc}
      */
     public function getType()
@@ -46,6 +62,8 @@ class Picture extends Message
             'text' => $this->getText(),
             'media' => $this->getMedia(),
             'thumbnail' => $this->getThumbnail(),
+            'size' => $this->getSize(),
+            'file_name' => $this->getFileName(),
         ]);
     }
 
@@ -117,6 +135,54 @@ class Picture extends Message
     public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Size of the file in bytes
+     *
+     * @return integer
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Set the value of Size of the file in bytes
+     *
+     * @param integer size
+     *
+     * @return static
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of Name of the file.
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->file_name;
+    }
+
+    /**
+     * Set the value of Name of the file.
+     *
+     * @param string file_name
+     *
+     * @return static
+     */
+    public function setFileName($file_name)
+    {
+        $this->file_name = $file_name;
 
         return $this;
     }
