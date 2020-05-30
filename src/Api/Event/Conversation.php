@@ -3,6 +3,7 @@
 namespace Viber\Api\Event;
 
 use Viber\Api\Event;
+use Viber\Api\User;
 
 /**
  * Triggers when a user opens a conversation with the PA using the “message”
@@ -24,7 +25,7 @@ class Conversation extends Event
     /**
      * Viber user
      *
-     * @var \Viber\Api\User
+     * @var User
      */
     protected $user;
 
@@ -34,6 +35,14 @@ class Conversation extends Event
      * @var string
      */
     protected $type;
+
+    /**
+     * Param "subscribed" is missing in documentation.
+     * It's "true" if user was subscribed but delete dialogue without unsubscribe
+     *
+     * @var bool
+     */
+    protected $subscribed;
 
     /**
      * Get the value of Context information
@@ -48,7 +57,7 @@ class Conversation extends Event
     /**
      * Get the value of Viber user
      *
-     * @return \Viber\Api\User
+     * @return User
      */
     public function getUser()
     {
@@ -63,5 +72,13 @@ class Conversation extends Event
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSubscribed()
+    {
+        return $this->subscribed;
     }
 }
