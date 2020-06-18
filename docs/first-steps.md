@@ -75,6 +75,7 @@ We already subscribed for events. Now we can can accept messages, pictures and o
 require_once("vendor/autoload.php");
 
 use Viber\Bot;
+use Viber\Api\Sender;
 
 $apiKey = '<PLACE-YOU-API-KEY-HERE>';
 
