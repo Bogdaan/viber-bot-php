@@ -43,7 +43,10 @@ class Entity
                 if (isset($this->propertiesMap[$propName])) {
                     $setterName = $this->propertiesMap[$propName];
                     $this->$setterName($propValue);
-                }
+                }  else {
+					if (property_exists(get_class($this), $propName)) {
+						$this->$propName = $propValue;
+				}
             }
         }
     }
