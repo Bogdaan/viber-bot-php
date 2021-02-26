@@ -60,6 +60,7 @@ class Keyboard extends Entity
             'Buttons' => $this->getButtonsApiArray(),
             'BgColor' => $this->getBgColor(),
             'DefaultHeight' => $this->getDefaultHeight(),
+            'InputFieldState' => $this->getInputFieldState(),
         ];
     }
 
