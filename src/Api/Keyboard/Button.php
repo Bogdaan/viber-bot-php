@@ -96,6 +96,15 @@ class Button extends Entity
     protected $Image;
 
     /**
+     * Type of scaling the bounds of an image to the bounds of the view.
+     *
+     * Avail: crop, fill, fit
+     *
+     * @var string
+     */
+    protected $ImageScaleType;
+
+    /**
      * Text to be displayed on the button. Can contain some HTML tags.
      *
      * Free text. Valid and allowed HTML tags Max 250 characters. If the text
@@ -160,6 +169,7 @@ class Button extends Entity
             'ActionType' => $this->getActionType(),
             'ActionBody' => $this->getActionBody(),
             'Image' => $this->getImage(),
+            'ImageScaleType' => $this->getImageScaleType(),
             'Text' => $this->getText(),
             'TextVAlign' => $this->getTextVAlign(),
             'TextHAlign' => $this->getTextHAlign(),
@@ -381,6 +391,30 @@ class Button extends Entity
     public function setImage($Image)
     {
         $this->Image = $Image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of image scaling type.
+     *
+     * @return string
+     */
+    public function getImageScaleType()
+    {
+        return $this->ImageScaleType;
+    }
+
+    /**
+     * Set the value of image scaling type.
+     *
+     * @param string ImageScaleType
+     *
+     * @return self
+     */
+    public function setImageScaleType($ImageScaleType)
+    {
+        $this->ImageScaleType = $ImageScaleType;
 
         return $this;
     }
