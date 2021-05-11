@@ -229,7 +229,7 @@ class Bot
                 $eventBody,
                 $this->getClient()->getToken()
             )) {
-                throw new \RuntimeException('Invalid signature. Body: ' . $eventBody . ' Client: ' . $this->getClient()->getToken(), 2);
+                throw new \RuntimeException('Invalid signature', 2);
             }
             // check json
             $eventBody = json_decode($eventBody, true);
