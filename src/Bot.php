@@ -31,6 +31,20 @@ class Bot
     protected $managers = [];
 
     /**
+     * Signature string
+     *
+     * @var string
+     */
+    protected $signature;
+
+    /**
+     * Input body
+     *
+     * @var string
+     */
+    protected $body;
+
+    /**
      * Init client
      *
      * Required options (one of two):
@@ -48,6 +62,14 @@ class Bot
             $this->client = $options['client'];
         } else {
             throw new \RuntimeException('Specify "client" or "token" parameter');
+        }
+
+        if (isset($options['signature'])) {
+            $this->signature = $options['signature'];
+        }
+
+        if (isset($options['body'])) {
+            $this->body = $options['body'];
         }
     }
 
@@ -150,16 +172,18 @@ class Bot
      * @throws \RuntimeException
      * @return string
      */
-    public function getSignHeaderValue()
+    public function getSignValue()
     {
         $signature = '';
-        if (isset($_SERVER['HTTP_X_VIBER_CONTENT_SIGNATURE'])) {
+        if ($this->signature !== null) {
+            $signature = $this->signature;
+        } elseif (isset($_SERVER['HTTP_X_VIBER_CONTENT_SIGNATURE'])) {
             $signature = $_SERVER['HTTP_X_VIBER_CONTENT_SIGNATURE'];
         } elseif (isset($_GET['sig'])) {
             $signature = $_GET['sig'];
         }
         if (empty($signature)) {
-            throw new \RuntimeException('Signature header not found', 1);
+            throw new \RuntimeException('Signature not found', 1);
         }
 
         return $signature;
@@ -172,7 +196,7 @@ class Bot
      */
     public function getInputBody()
     {
-        return file_get_contents('php://input');
+        return $this->body ?? fopen('php://input', 'r');
     }
 
     /**
@@ -201,11 +225,11 @@ class Bot
             $eventBody = $this->getInputBody();
 
             if (!Signature::isValid(
-                $this->getSignHeaderValue(),
+                $this->getSignValue(),
                 $eventBody,
                 $this->getClient()->getToken()
             )) {
-                throw new \RuntimeException('Invalid signature header', 2);
+                throw new \RuntimeException('Invalid signature', 2);
             }
             // check json
             $eventBody = json_decode($eventBody, true);
