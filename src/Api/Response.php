@@ -36,7 +36,7 @@ class Response
         if (isset($data['status'])) {
             if ($data['status'] != 0) {
                 throw new ApiException('Remote error: ' .
-                    (isset($data['status_message']) ? $data['status_message'] : '-'),
+                    (isset($data['status_message']) ? $data['status_message'] : $response->getBody()),
                     $data['status']);
             }
             $item = new self();
