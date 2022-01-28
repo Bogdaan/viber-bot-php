@@ -87,7 +87,7 @@ $botSender = new Sender([
 try {
     $bot = new Bot([ 'token' => $apiKey ]);
     $bot
-    ->onText('|.*|s', function ($event) use ($bot) {
+    ->onText('|.*|s', function ($event) use ($bot, $botSender) {
         // .* - match any symbols (see PCRE)
         $bot->getClient()->sendMessage(
             (new \Viber\Api\Message\Text())
